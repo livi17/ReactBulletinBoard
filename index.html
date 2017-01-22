@@ -11,13 +11,20 @@
         <div id='react-container'></div>
         <script type="text/babel">
         var Note = React.createClass({
+        	
+        	edit(){
+        		alert("Editing Note");
+        	},
+        	remove(){
+        		alert("Removing Note");
+        	},
         	render() {
         		return (
         			<div className="note">
         			<p></p>
         			<span>
-        				<button>Edit</button>
-        				<button>X</button>
+        				<button onClick={this.edit}>Edit</button>
+        				<button onClick={this.remove}>X</button>
         			</span>
         			</div>
         			)
