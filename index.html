@@ -18,6 +18,8 @@
                 this.setState({editing: true})
             },
             save() {
+                var val = this.refs.newText.value
+                alert('Later we will save this value: ' + val)
                 this.setState({editing: false})
             },
             remove() {
@@ -26,7 +28,7 @@
             renderForm() {
                 return (
                     <div className="note">
-                      <textarea></textarea>
+                      <textarea ref="newText"></textarea>
                       <button onClick={this.save}>SAVE</button>
                     </div>
                 )
@@ -48,14 +50,45 @@
 
             }
         })
+
+        var Board = React.createClass({
+            propTypes: {
+                count: function(props, propName) {
+                    if(typeof props[propName] !== "number") {
+                        return new Error("the count must be a number")
+                    } 
+
+                    if(props[propName] > 100) {
+                        return new Error('Creating ' + props[propName] + ' notes is ridiculous')
+                    }
+                }
+            },
+
+            getInitialState(){
+            	return{
+            		notes: [
+            		'Call Bon',
+            		'Email Sarah',
+            		'Eat Lunch',
+            		'Finish proposal'
+            		]
+            	}
+            },
+            render() {
+                return (<div className='board'>
+                    {this.state.notes.map((note, i) => {
+                    	return <Note key={i}>{note}</Note>
+                    })}
+                    </div>)
+            }
+        })
         
-        ReactDOM.render(<Note>Hello World</Note>, 
+        ReactDOM.render(<Board count={10}/>, 
             document.getElementById('react-container'))
 
         </script>
     </body>
 </html>
-
 
 
 
